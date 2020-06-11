@@ -17,20 +17,46 @@
  * Define Global Variables
  * 
 */
-const sections = document.querySelectorAll("section");
-const navBar = document.getElementById("navbar__list");
 
+const navBar = document.getElementById("navbar__list");
+let counter = 5;
 
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
-const scrollToElement = function(target) {
+
+// Function that activates smooth scrolling
+const scrollToElement = (target) => {
     document.querySelector(target.hash).scrollIntoView({
         behavior: "smooth",
         block: "start"
     });
+}
+
+// Function that creates new section
+const addSection = () => {
+    const template = document.querySelector("#newSection");
+
+    const clone = template.content.cloneNode(true);
+    clone.children[0].id += counter.toString();
+    clone.children[0].dataset.nav += counter.toString();
+    clone.querySelector("h2").innerText += counter.toString();
+    // console.log(clone.children[0]);
+    
+    template.parentElement.appendChild(clone);
+    removeNavBar();
+    buildNavBar();
+    counter++;
+}
+
+// Remove elements in Nav Bar
+const removeNavBar = () => {
+    const navList = document.querySelectorAll('ul li');
+    navList.forEach(li => {
+        li.remove();
+    })
 }
 
 
@@ -42,12 +68,12 @@ const scrollToElement = function(target) {
 
 // build the nav
 const buildNavBar = function() {
+    const sections = document.querySelectorAll("section");
     const fragment = document.createDocumentFragment();
 
     for (section of sections) {
         const newElement = document.createElement('li');
         newElement.classList.add("menu__link");
-        // newElement.innerText = section.id;
 
         const link = document.createElement('a');
         link.innerText = section.dataset.nav;
@@ -56,6 +82,17 @@ const buildNavBar = function() {
         
         fragment.appendChild(newElement)
     }
+    // Add "new section" button
+    const newElement = document.createElement('li');
+    newElement.classList.add("menu__link");
+
+    const link = document.createElement('a');
+    link.innerText = "New Section";
+    link.id = "new_section";
+    link.href = "#top";
+    newElement.appendChild(link);   
+
+    fragment.appendChild(newElement)
 
     navBar.appendChild(fragment);
 }
@@ -67,7 +104,10 @@ window.addEventListener("scroll", event => {
     const navLinks = document.querySelectorAll("nav ul li a");
     navLinks.forEach(link => {
         let section = document.querySelector(link.hash);
-        
+        // Ignore scrolling if there is no section href
+        if (!section) {return}
+
+        // Add or remove active class
         if (
             section.offsetTop <= fromTop + 200 &&
             section.offsetTop + section.offsetHeight - 200 > fromTop
@@ -84,13 +124,20 @@ window.addEventListener("scroll", event => {
 // Scroll to anchor ID using scrollTO event
 navBar.addEventListener("click", function(e) {
     event.preventDefault();
-
+    // If it is "New Section" button
+    if (e.target.children[0].hash == "#top") {
+        addSection();
+        return
+    }
+    // If clicked on a tag
     if (e.target.nodeName == "A") {
         scrollToElement(e.target);
+        return
     }
-
+    // If li tag was clicked instead of a tag
     if (e.target.nodeName == "LI") {
         scrollToElement(e.target.children[0])
+        return
     }
     
 })

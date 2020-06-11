@@ -79,11 +79,12 @@ section {
 }
 
 .navbar__menu li {
-    display: inline-block;
+    width: 20vw;
+    display: flex;
+    justify-content: center;
 }
 
 .navbar__menu .menu__link {
-    display: block;
     padding: 1em;
     font-weight: bold;
     text-decoration: none;
