@@ -67,10 +67,10 @@ window.addEventListener("scroll", event => {
     const navLinks = document.querySelectorAll("nav ul li a");
     navLinks.forEach(link => {
         let section = document.querySelector(link.hash);
-        // console.log(section, section.offsetTop, section.offsetHeight, fromTop,link);
+        
         if (
             section.offsetTop <= fromTop + 200 &&
-            section.offsetTop + section.offsetHeight - 150 > fromTop
+            section.offsetTop + section.offsetHeight - 200 > fromTop
         ) {
             section.classList.add("your-active-class");
             link.parentElement.classList.add("link_active");
