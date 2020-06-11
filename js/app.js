@@ -17,6 +17,8 @@
  * Define Global Variables
  * 
 */
+const sections = document.querySelectorAll("section");
+const navBar = document.getElementById("navbar__list");
 
 
 /**
@@ -24,7 +26,12 @@
  * Start Helper Functions
  * 
 */
-
+const scrollToElement = function(target) {
+    document.querySelector(target.hash).scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
 
 
 /**
@@ -36,8 +43,6 @@
 // build the nav
 const buildNavBar = function() {
     const fragment = document.createDocumentFragment();
-    const sections = document.querySelectorAll("section");
-    const navBar = document.getElementById("navbar__list");
 
     for (section of sections) {
         const newElement = document.createElement('li');
@@ -49,21 +54,42 @@ const buildNavBar = function() {
         link.href = `#${section.id}`;
         newElement.appendChild(link);
         
-
         fragment.appendChild(newElement)
-        console.log(fragment);
     }
 
     navBar.appendChild(fragment);
 }
 
-buildNavBar();
 
 // Add class 'active' to section when near top of viewport
-
+window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+    const navLinks = document.querySelectorAll("nav ul li a");
+    navLinks.forEach(link => {
+        let section = document.querySelector(link.hash);
+        // console.log(section, section.offsetTop, section.offsetHeight, fromTop,link);
+        if (
+            section.offsetTop <= fromTop + 200 &&
+            section.offsetTop + section.offsetHeight - 150 > fromTop
+        ) {
+            section.classList.add("your-active-class");
+            link.parentElement.classList.add("link_active");
+        } else {
+            section.classList.remove("your-active-class");
+            link.parentElement.classList.remove("link_active");
+        }
+    });
+  });
 
 // Scroll to anchor ID using scrollTO event
-
+navBar.addEventListener("click", function(e) {
+    event.preventDefault();
+    if (e.target.nodeName == "A") {
+        console.log("Scroll to...");
+        scrollToElement(e.target);
+    }
+    
+})
 
 /**
  * End Main Functions
@@ -72,6 +98,7 @@ buildNavBar();
 */
 
 // Build menu 
+buildNavBar();
 
 // Scroll to section on link click
 
