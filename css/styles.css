@@ -68,6 +68,10 @@ section {
     padding-left: 0;
     margin: 0;
     text-align: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: wrap;
 }
 
 .navbar__menu li {
@@ -86,6 +90,11 @@ section {
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
+}
+
+.navbar__menu a {
+    text-decoration: none;
+    color: inherit;
 }
 
 /* Header Styles */
