@@ -84,9 +84,13 @@ window.addEventListener("scroll", event => {
 // Scroll to anchor ID using scrollTO event
 navBar.addEventListener("click", function(e) {
     event.preventDefault();
+
     if (e.target.nodeName == "A") {
-        console.log("Scroll to...");
         scrollToElement(e.target);
+    }
+
+    if (e.target.nodeName == "LI") {
+        scrollToElement(e.target.children[0])
     }
     
 })
