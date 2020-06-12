@@ -29,11 +29,23 @@ let counter = 5;
 
 // Function that activates smooth scrolling
 const scrollToElement = (target) => {
-    document.querySelector(target.hash).scrollIntoView({
-        behavior: "smooth",
-        block: "start"
+    // determine height from top + nav bar height
+    let section = document.querySelector(target.hash);
+    let height = section.offsetTop - navBar.offsetHeight;
+    
+    scrollTo({
+        top: height,
+        behavior: 'smooth',
     });
+
+    // *** SCROLLING, 2nd OPTION: not used because navbar if it too tall ***
+
+    // document.querySelector(target.hash).scrollIntoView({
+    //     behavior: "smooth",
+    //     block: "start"
+    // });    
 }
+
 
 // Function that creates new section
 const addSection = () => {
@@ -43,7 +55,6 @@ const addSection = () => {
     clone.children[0].id += counter.toString();
     clone.children[0].dataset.nav += counter.toString();
     clone.querySelector("h2").innerText += counter.toString();
-    // console.log(clone.children[0]);
     
     template.parentElement.appendChild(clone);
     removeNavBar();
@@ -101,6 +112,7 @@ const buildNavBar = function() {
 // Add class 'active' to section when near top of viewport
 window.addEventListener("scroll", event => {
     let fromTop = window.scrollY;
+
     const navLinks = document.querySelectorAll("nav ul li a");
     navLinks.forEach(link => {
         let section = document.querySelector(link.hash);
