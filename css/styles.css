@@ -79,13 +79,13 @@ section {
 }
 
 .navbar__menu li {
-    width: 20vw;
+    width: 15vw;
     display: flex;
     justify-content: center;
 }
 
 .navbar__menu .menu__link {
-    padding: 1em;
+    padding: 0.5em;
     font-weight: bold;
     text-decoration: none;
     color: #000;
