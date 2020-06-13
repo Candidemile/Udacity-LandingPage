@@ -151,7 +151,6 @@ navBar.addEventListener("click", function(e) {
     }
     // If it is "New Section" button
     if (e.target.children[0].hash == "#top") {
-        console.log('Adding section', e.target, e.target.children[0]);
         addSection();
         return
     }
@@ -175,23 +174,17 @@ navBar.addEventListener("click", function(e) {
 */
 
 // Build menu
-document.addEventListener('DOMContentLoaded', function () {
-    
+document.addEventListener('DOMContentLoaded', function () { 
     buildNavBar();
 }); 
-
-
-// Scroll to section on link click
-
-// Set sections as active
 
 // Performance results
 const endingTime = performance.now();
 console.log('This code took ' + (endingTime - startTimeDOM).toPrecision(3) + ' milliseconds. (End of the body element)');
 
-// Hide menu
+// Hide sections
 const hideMenu = () => {
-    if (counter > 4) {
+    if (counter > 5) {
         const menu = document.querySelector("#menu");
         menu.classList.remove('menu_hide');
         const links = document.querySelectorAll(".menu__link");
@@ -199,9 +192,7 @@ const hideMenu = () => {
             
             if (link.id != "new-section" && link.id != "menu") {
                 link.classList.add('menu_hide');
-                console.log(link.id);
             } else {
-                console.log(`Remove hide from ${link}`);
                 link.classList.remove('menu_hide');
             }
         });
@@ -213,7 +204,6 @@ navBar.addEventListener("click", function(e) {
     event.preventDefault();
     // If it is "menu" button
     if (e.target.id == "menu") {
-        console.log("Menu is clicked:", e.target.id);
         const linksHidden = document.querySelectorAll(".menu_hide");
         const links = document.querySelectorAll(".menu__link");
         console.log(links.length);
@@ -228,4 +218,27 @@ navBar.addEventListener("click", function(e) {
             }
         });  
     }
-});   
+});
+// No scroll effect with menu
+const noScroll = () => {
+    // Show nav bar on scrolling
+    window.onscroll = () => {
+        navBar.classList.remove('no_scroll');
+    }
+    // Hide nav bar after first load
+    setTimeout(() => {
+        navBar.classList.add('no_scroll');
+    },3000);
+    // Set interval to hide nav bar if no scrolling
+    setInterval(() => {
+        navBar.classList.add('no_scroll');
+    }, 5000);
+    // Show nav bar when mouse moving close to it
+    window.addEventListener('mousemove', (e) => {
+        if (e.clientY < navBar.offsetHeight + 100) {
+            navBar.classList.remove('no_scroll');
+        }  
+    });
+
+}   
+noScroll();

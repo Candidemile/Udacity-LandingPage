@@ -10,9 +10,9 @@
 
 
 /* ---- Base Rules ---- */
-html {
-    /* scroll-behavior: smooth; */
-}
+/* html {
+    scroll-behavior: smooth;
+} */
 
 body {
     background: rgb(136,203,171);
@@ -84,6 +84,10 @@ section {
     justify-content: center;
 }
 
+.navbar__menu .no_scroll {
+    display: none;
+}
+
 .navbar__menu .menu__link {
     padding: 0.5em;
     font-weight: bold;
@@ -109,12 +113,6 @@ section {
     color: inherit;
 }
 
-.navbar__menu #menu:hover {
-    .navbar li.menu__link {
-        display: ;
-    }
-}
-
 .navbar__menu .menu_hide {
     display: none;
 }
@@ -123,9 +121,11 @@ section {
     margin-top: auto;
 }
 
-.navbar #new-section {
-    order: 2;
+.navbar #navbar__list {
+    display: inherit;
 }
+
+
 
 
 /* Header Styles */
