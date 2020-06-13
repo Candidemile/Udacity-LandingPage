@@ -290,3 +290,19 @@ section.your-active-class .landing__container::after {
 		           rotate(-360deg);
 	}
 }
+
+@media (max-width: 600px) {
+    .navbar__menu li {
+        width: 40%;
+    }
+
+    .navbar__menu ul {
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+    }
+
+    footer #go_top_button {
+        width: 10vw;
+    }
+}
