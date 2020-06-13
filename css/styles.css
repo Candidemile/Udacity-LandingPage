@@ -109,13 +109,24 @@ section {
     color: inherit;
 }
 
-.menu_show {
-    
+.navbar__menu #menu:hover {
+    .navbar li.menu__link {
+        display: ;
+    }
 }
 
-.menu_hide {
+.navbar__menu .menu_hide {
     display: none;
 }
+
+.navbar #menu {
+    margin-top: auto;
+}
+
+.navbar #new-section {
+    order: 2;
+}
+
 
 /* Header Styles */
 .page__header {

@@ -60,6 +60,7 @@ const addSection = () => {
     removeNavBar();
     buildNavBar();
     counter++;
+    hideMenu();
 }
 
 // Remove elements in Nav Bar
@@ -96,14 +97,22 @@ const buildNavBar = function() {
     // Add "new section" button
     const newElement = document.createElement('li');
     newElement.classList.add("menu__link");
-
+    newElement.id = "new-section";
     const link = document.createElement('a');
     link.innerText = "New Section";
-    link.id = "new_section";
     link.href = "#top";
     newElement.appendChild(link);   
-
-    fragment.appendChild(newElement)
+    fragment.appendChild(newElement);
+    // Add menu button
+    const menu = document.createElement('li');
+    menu.classList.add("menu__link");
+    menu.classList.add("menu_hide");
+    menu.id = "menu";
+    const menu_link = document.createElement('a');
+    menu_link.innerText = "Menu";
+    menu_link.href = "#";
+    menu.appendChild(menu_link);
+    fragment.appendChild(menu);
 
     navBar.appendChild(fragment);
 }
@@ -115,6 +124,7 @@ window.addEventListener("scroll", event => {
 
     const navLinks = document.querySelectorAll("nav ul li a");
     navLinks.forEach(link => {
+        if (!link.hash) {return}
         let section = document.querySelector(link.hash);
         // Ignore scrolling if there is no section href
         if (!section) {return}
@@ -136,8 +146,12 @@ window.addEventListener("scroll", event => {
 // Scroll to anchor ID using scrollTO event
 navBar.addEventListener("click", function(e) {
     event.preventDefault();
+    if (!e.target.children[0].hash) {
+        return
+    }
     // If it is "New Section" button
     if (e.target.children[0].hash == "#top") {
+        console.log('Adding section', e.target, e.target.children[0]);
         addSection();
         return
     }
@@ -152,7 +166,7 @@ navBar.addEventListener("click", function(e) {
         return
     }
     
-})
+});
 
 /**
  * End Main Functions
@@ -175,3 +189,43 @@ document.addEventListener('DOMContentLoaded', function () {
 const endingTime = performance.now();
 console.log('This code took ' + (endingTime - startTimeDOM).toPrecision(3) + ' milliseconds. (End of the body element)');
 
+// Hide menu
+const hideMenu = () => {
+    if (counter > 4) {
+        const menu = document.querySelector("#menu");
+        menu.classList.remove('menu_hide');
+        const links = document.querySelectorAll(".menu__link");
+        links.forEach(link => {
+            
+            if (link.id != "new-section" && link.id != "menu") {
+                link.classList.add('menu_hide');
+                console.log(link.id);
+            } else {
+                console.log(`Remove hide from ${link}`);
+                link.classList.remove('menu_hide');
+            }
+        });
+    }
+}
+
+// Add even listener for "menu" button clicks
+navBar.addEventListener("click", function(e) {
+    event.preventDefault();
+    // If it is "menu" button
+    if (e.target.id == "menu") {
+        console.log("Menu is clicked:", e.target.id);
+        const linksHidden = document.querySelectorAll(".menu_hide");
+        const links = document.querySelectorAll(".menu__link");
+        console.log(links.length);
+        links.forEach(link => {       
+            if (linksHidden.length > 1) {
+                link.classList.remove('menu_hide');
+            } else {
+                link.classList.add('menu_hide');
+            }
+            if (link.id) {
+                link.classList.remove('menu_hide');
+            }
+        });  
+    }
+});   
