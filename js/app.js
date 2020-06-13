@@ -65,7 +65,8 @@ const addSection = () => {
 
 // Remove elements in Nav Bar
 const removeNavBar = () => {
-    const navList = document.querySelectorAll('ul li');
+    
+    const navList = document.querySelectorAll('.navbar__menu li');
     navList.forEach(li => {
         li.remove();
     })
@@ -119,10 +120,12 @@ const buildNavBar = function() {
 
 
 // Add class 'active' to section when near top of viewport
-window.addEventListener("scroll", event => {
+window.addEventListener("scroll", () => {
+    // check if Go Top button should show up
+    goTopButton();
+    
     let fromTop = window.scrollY;
-
-    const navLinks = document.querySelectorAll("nav ul li a");
+    const navLinks = document.querySelectorAll(".navbar__menu li a");
     navLinks.forEach(link => {
         if (!link.hash) {return}
         let section = document.querySelector(link.hash);
@@ -175,7 +178,7 @@ navBar.addEventListener("click", function(e) {
 
 // Build menu
 document.addEventListener('DOMContentLoaded', function () { 
-    buildNavBar();
+    
 }); 
 
 // Performance results
@@ -206,7 +209,7 @@ navBar.addEventListener("click", function(e) {
     if (e.target.id == "menu") {
         const linksHidden = document.querySelectorAll(".menu_hide");
         const links = document.querySelectorAll(".menu__link");
-        console.log(links.length);
+
         links.forEach(link => {       
             if (linksHidden.length > 1) {
                 link.classList.remove('menu_hide');
@@ -219,7 +222,8 @@ navBar.addEventListener("click", function(e) {
         });  
     }
 });
-// No scroll effect with menu
+
+// menu show/hide
 const noScroll = () => {
     // Show nav bar on scrolling
     window.onscroll = () => {
@@ -228,7 +232,7 @@ const noScroll = () => {
     // Hide nav bar after first load
     setTimeout(() => {
         navBar.classList.add('no_scroll');
-    },3000);
+    },5000);
     // Set interval to hide nav bar if no scrolling
     setInterval(() => {
         navBar.classList.add('no_scroll');
@@ -241,4 +245,24 @@ const noScroll = () => {
     });
 
 }   
-noScroll();
+
+
+// scroll to top
+const goTopButton = () => {
+    const button = document.querySelector('#go_top_button');
+    if (visualViewport.pageTop - visualViewport.height < 0) {
+        button.classList.add('hide_button');
+    } else {
+        button.classList.remove('hide_button');
+    }
+}
+
+// MAIN SECTION!!!
+
+const main = () => {
+    buildNavBar();
+    goTopButton();
+    noScroll();
+}
+
+main();

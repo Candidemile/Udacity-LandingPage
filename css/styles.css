@@ -10,9 +10,9 @@
 
 
 /* ---- Base Rules ---- */
-/* html {
+html {
     scroll-behavior: smooth;
-} */
+}
 
 body {
     background: rgb(136,203,171);
@@ -125,7 +125,35 @@ section {
     display: inherit;
 }
 
+/* GO TO TOP BUTTON */
+footer ul {
+    list-style-type: none;
+}
 
+footer #go_top_button {
+    width: 5vw;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 0.5em;
+    margin: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    background-color: #000;
+    border-radius: 10vw;
+    text-align: center;
+}
+
+footer #go_top_button:hover {
+    background: #fff;
+    color: #333;
+    transition: ease 0.3s all;
+}
+
+footer .hide_button {
+    display: none;
+}
 
 
 /* Header Styles */
