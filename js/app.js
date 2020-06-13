@@ -17,7 +17,7 @@
  * Define Global Variables
  * 
 */
-
+const startingTime = performance.now();
 const navBar = document.getElementById("navbar__list");
 let counter = 5;
 
@@ -160,11 +160,18 @@ navBar.addEventListener("click", function(e) {
  * 
 */
 
-// Build menu 
-buildNavBar();
+// Build menu
+document.addEventListener('DOMContentLoaded', function () {
+    
+    buildNavBar();
+}); 
+
 
 // Scroll to section on link click
 
 // Set sections as active
 
+// Performance results
+const endingTime = performance.now();
+console.log('This code took ' + (endingTime - startTimeDOM).toPrecision(3) + ' milliseconds. (End of the body element)');
 

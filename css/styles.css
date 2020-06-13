@@ -109,6 +109,14 @@ section {
     color: inherit;
 }
 
+.menu_show {
+    
+}
+
+.menu_hide {
+    display: none;
+}
+
 /* Header Styles */
 .page__header {
     background: #fff;

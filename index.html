@@ -8,6 +8,16 @@
   <!-- Load Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap" rel="stylesheet">  <!-- Load Styles -->
   <link href="css/styles.css" rel="stylesheet">
+
+  <!-- Performance script -->
+  <script>
+    const startTimeDOM = performance.now();
+    document.addEventListener('DOMContentLoaded', function () {
+    console.log('the DOM is ready to be interacted with!');
+    const endTimeDOM = performance.now();
+    console.log(`DOM loaded in ${(endTimeDOM - startTimeDOM).toPrecision(3)}. (In the head element)`);
+});
+  </script>
 </head>
 <body>
   <!-- HTML Follows BEM naming conventions 
