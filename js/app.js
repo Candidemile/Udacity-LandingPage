@@ -220,6 +220,7 @@ navBar.addEventListener('click', function(e) {
 
 // menu show/hide
 const noScroll = () => {
+    let mouseAwayFromMenu = true;
     // Show nav bar on scrolling
     window.onscroll = () => {
         navBar.classList.remove('no_scroll');
@@ -230,17 +231,24 @@ const noScroll = () => {
     }, 5000);
     // Set interval to hide nav bar if no scrolling
     setInterval(() => {
-        navBar.classList.add('no_scroll');
+        if (mouseAwayFromMenu) {
+            navBar.classList.add('no_scroll');
+        }   
     }, 5000);
     // Show nav bar when mouse moving close to it
     window.addEventListener('mousemove', (e) => {
-        if (e.clientY < navBar.offsetHeight + 100) {
+        if (e.clientY < navBar.offsetHeight + 50) {
             navBar.classList.remove('no_scroll');
+            mouseAwayFromMenu = false;
+            console.log(mouseAwayFromMenu);
+        } else {
+            mouseAwayFromMenu = true;
+            console.log(mouseAwayFromMenu);
         }
     });
 };
 
-// scroll to top
+// scroll to the top
 const goTopButton = () => {
     const button = document.querySelector('#go_top_button');
     if (visualViewport.pageTop - visualViewport.height < 0) {
