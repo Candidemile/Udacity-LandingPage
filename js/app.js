@@ -233,7 +233,7 @@ const noScroll = () => {
     setInterval(() => {
         if (mouseAwayFromMenu) {
             navBar.classList.add('no_scroll');
-        }   
+        }
     }, 5000);
     // Show nav bar when mouse moving close to it
     window.addEventListener('mousemove', (e) => {
